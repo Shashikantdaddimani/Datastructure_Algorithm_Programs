@@ -7,23 +7,33 @@ import java.util.Scanner;
 
 public class Permutation {
 	/*
-	 * str string to calculate permutation for si->Starting index; li->Lower index;
+	 * Method for permutation
 	 */
-	private void permute(String str, int si, int li) {
-		if (si == li)
+	private void permutation(String str, int L, int R) {
+		if (L == R)
 			System.out.println(str);
 		else {
-			for (int i = si; i <= li; i++) {
-				str = swap(str, si, i);
-				permute(str, si + 1, li);
-				str = swap(str, si, i);
+			for (int i = L; i <= R; i++) {
+				str = swap(str, L, i);
+				permutation(str, L + 1, R);
+				/*
+				 * BackTracking
+				 */
+				str = swap(str, L, i); 
 			}
 		}
+
 	}
-		//swapping
-	public String swap(String a, int i, int j) {
+		/*
+		 * Method for Swapping
+		 */
+	public String swap(String str, int i, int j) {
+		//Declaring temp variable
 		char temp;
-		char[] charArray = a.toCharArray();
+		/*
+		 * Actual char Array
+		 */
+		char[] charArray = str.toCharArray();
 		temp = charArray[i];
 		charArray[i] = charArray[j];
 		charArray[j] = temp;
@@ -34,12 +44,16 @@ public class Permutation {
 	 * program execution starts from main method
 	 */
 	public static void main(String[] args) {
+		/*
+		 * Taking user input to the scanner class
+		 */
 		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the Word");
+		System.out.println("Enter the String");
 		String str = input.next();
 		int length = str.length();
+		//class object
 		Permutation permutation = new Permutation();
-		permutation.permute(str, 0, length - 1);
+		permutation.permutation(str, 0, length - 1);
 	}
 
 }
